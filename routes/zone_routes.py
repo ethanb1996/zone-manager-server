@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 
+from models.zone import Zone
+
 zone_router = APIRouter()
 
 @zone_router.post("/zone", response_model=Zone)
