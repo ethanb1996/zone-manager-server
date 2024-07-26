@@ -2,10 +2,10 @@ import os
 import pandas as pd
 
 from models.zone import Zone, Zone_Details
-from models.point import Point
 
 FILENAME = r"data/zones.csv"
 COLUMNS = ['id', 'name', 'points']
+
 class Zone_Service:
     
     def read_zones() -> list[Zone]: 

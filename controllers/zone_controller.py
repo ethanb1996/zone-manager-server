@@ -1,7 +1,6 @@
 from fastapi import HTTPException
 
 from models.zone import Zone, Zone_Details
-from models.point import Point
 from services.zone_service import Zone_Service
 
 
