@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from routes.zone_routes import zone_router
+from routes.zone_route import zone_router
 
 app = FastAPI()
 
