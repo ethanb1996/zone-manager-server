@@ -4,6 +4,5 @@ class Zone_Details(BaseModel):
     name:str
     points: list[list[float]]
 
-class Zone(BaseModel):
+class Zone(Zone_Details):
     id: int
-    zone_detail:Zone_Details

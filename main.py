@@ -5,14 +5,14 @@ from fastapi import FastAPI
 from routes.zone_route import zone_router
 
 FILENAME = r"data/zones.csv"
+COLUMNS = ['id', 'name', 'points']
 
 app = FastAPI()
 
 app.include_router(zone_router)
 
 def create_csv_file():
-    columns = ['id', 'name', 'points']
-    df = pd.DataFrame(columns=columns)
+    df = pd.DataFrame(columns=COLUMNS)
     df.to_csv(FILENAME, index=False)
     print("CSV file with headers created successfully.")
     
