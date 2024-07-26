@@ -1,14 +1,14 @@
 import os
 import pandas as pd
 
-from models.zone import Zone
+from models.zone import Zone, Zone_Details
 from models.point import Point
 
-FILENAME = "/data/zones.csv"
+FILENAME = r"data/zones.csv"
 class Zone_Service:
     
     def read_zones() -> list[Zone]: 
-        if os.path(FILENAME):
+        if os.path.exists(FILENAME):
             return pd.read_csv(FILENAME).to_dict(orient='records')
         return []
 
@@ -16,10 +16,10 @@ class Zone_Service:
         df = pd.DataFrame(zones)
         df.to_csv(FILENAME, index=False)
 
-    def create_zone(name: str, points: list[Point]) -> Zone:
+    def create_zone(zone_details:Zone_Details) -> Zone:
         zones = Zone_Service.read_zones()
         zone_id = len(zones) + 1
-        new_zone = {"id": zone_id, "name": name, "points": points}
+        new_zone = {"id": zone_id, "name": zone_details.name, "points": zone_details.points}
         zones.append(new_zone)
         Zone_Service.write_zones(zones)
         return new_zone

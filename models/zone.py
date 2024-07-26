@@ -1,8 +1,9 @@
 from pydantic import BaseModel
 
-from point import Point
+class Zone_Details(BaseModel):
+    name:str
+    points: list[list[float]]
 
 class Zone(BaseModel):
     id: int
-    name:str
-    points: list[Point]
+    zone_detail:Zone_Details

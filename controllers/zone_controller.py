@@ -1,14 +1,14 @@
 from fastapi import HTTPException
 
-from models.zone import Zone
+from models.zone import Zone, Zone_Details
 from models.point import Point
 from services.zone_service import Zone_Service
 
 
 class Zone_Controller:
     
-    def create_zone(name:str, points:list[Point]) -> Zone:
-        return Zone_Service.create_zone(name,points)
+    def create_zone(zone_details:Zone_Details) -> Zone:
+        return Zone_Service.create_zone(zone_details)
     
     def delete_zone(id:int) -> None:
         result = Zone_Service.delete_zone(id)
