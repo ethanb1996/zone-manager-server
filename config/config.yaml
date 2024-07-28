@@ -1,0 +1,5 @@
+app:
+  FILENAME: "data/zones.csv"
+  COLUMNS: ['id', 'name', 'points']
+  ORIGINS: ["http://localhost:4200"]
+  ALLOW_METHODS: ["GET,POST,DELETE"]

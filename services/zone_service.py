@@ -1,10 +1,11 @@
 import os
 import pandas as pd
 
+from services.config_service import Config
 from models.zone import Zone, Zone_Details
 
-FILENAME = r"data/zones.csv"
-COLUMNS = ['id', 'name', 'points']
+FILENAME = Config.get_app_config()["FILENAME"]
+COLUMNS = Config.get_app_config()["COLUMNS"]
 
 class Zone_Service:
     

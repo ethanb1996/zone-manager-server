@@ -1,25 +1,28 @@
 import os
 import pandas as pd
 from fastapi import FastAPI
+from services.config_service import Config
 from fastapi.middleware.cors import CORSMiddleware
+
+Config.init()
+
 
 from routes.zone_route import zone_router
 
-FILENAME = r"data/zones.csv"
-COLUMNS = ['id', 'name', 'points']
-origins = [
-    "http://localhost:4200",  # Or you can add more addresses 
-]
 
-# Add CORSMiddleware to the application
+
+FILENAME = Config.get_app_config()['FILENAME']
+COLUMNS = Config.get_app_config()['COLUMNS']
+ORIGINS = Config.get_app_config()['ORIGINS']
+ALLOW_METHODS = Config.get_app_config()['ALLOW_METHODS']
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=ALLOW_METHODS,
     allow_headers=["*"],
 )
 
@@ -31,6 +34,7 @@ def create_csv_file():
     print("CSV file with headers created successfully.")
     
 if __name__ == "__main__":
+    Config.init()
     if not os.path.exists(FILENAME):
         create_csv_file()
         
