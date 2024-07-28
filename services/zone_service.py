@@ -8,6 +8,16 @@ COLUMNS = ['id', 'name', 'points']
 
 class Zone_Service:
     
+    available_ids = None
+    
+    def get_available_ids():
+        if os.path.exists(FILENAME):
+            zones_df = pd.read_csv(FILENAME)
+            existing_ids = set(zones_df['id'])
+            max_id = max(existing_ids)
+            Zone_Service.available_ids = set(range(1, max_id + 1))  # correction here
+            Zone_Service.available_ids.difference(existing_ids)
+            
     def read_zones() -> list[Zone]: 
         if os.path.exists(FILENAME):
             zones_dict = pd.read_csv(FILENAME).to_dict(orient='records')
@@ -21,7 +31,7 @@ class Zone_Service:
 
     def create_zone(zone_details:Zone_Details) -> Zone:
         zones = Zone_Service.read_zones()
-        zone_id = len(zones) + 1
+        zone_id = Zone_Service.available_ids.pop() if len(Zone_Service.available_ids) > 0 else len(zones)+1
         new_zone = Zone(id=zone_id, **zone_details.model_dump())
         zones.append(new_zone)
         Zone_Service.write_zones(zones)
@@ -31,6 +41,7 @@ class Zone_Service:
         zones = Zone_Service.read_zones()
         for zone in zones:
             if zone.id == zone_id:
+                Zone_Service.available_ids.append(zone.id)
                 zones.remove(zone)
                 Zone_Service.write_zones(zones)
                 return f"Zone with id {zone_id} deleted"

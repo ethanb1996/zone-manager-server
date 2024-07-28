@@ -5,6 +5,8 @@ from controllers.zone_controller import Zone_Controller
 
 zone_router = APIRouter()
 
+Zone_Controller.get_avalaible_ids()
+
 @zone_router.post("/create_zone", response_model=Zone)
 def create_zone(zone_detail:Zone_Details):
     return Zone_Controller.create_zone(zone_detail) 

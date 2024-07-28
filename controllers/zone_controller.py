@@ -17,3 +17,6 @@ class Zone_Controller:
     
     def fetch_zones() -> list[Zone]:
         return Zone_Service.get_all_zones()
+    
+    def get_avalaible_ids() -> None:
+        Zone_Service.get_available_ids()
